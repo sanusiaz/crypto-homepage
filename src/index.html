@@ -5,7 +5,644 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="./assets/styles.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/font-awesome.min.css">
+    <style type="text/css">
+    .apexcharts-canvas {
+        position: relative;
+        user-select: none;
+        /* cannot give overflow: hidden as it will crop tooltips which overflow outside chart area */
+    }
+
+    /* scrollbar is not visible by default for legend, hence forcing the visibility */
+    .apexcharts-canvas ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 6px;
+    }
+
+    .apexcharts-canvas ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, .5);
+        box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+        -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    }
+
+    .apexcharts-canvas.dark {
+        background: #343F57;
+    }
+
+    .apexcharts-inner {
+        position: relative;
+    }
+
+    .legend-mouseover-inactive {
+        transition: 0.15s ease all;
+        opacity: 0.20;
+    }
+
+    .apexcharts-series-collapsed {
+        opacity: 0;
+    }
+
+    .apexcharts-gridline,
+    .apexcharts-text {
+        pointer-events: none;
+    }
+
+    .apexcharts-tooltip {
+        border-radius: 5px;
+        box-shadow: 2px 2px 6px -4px #999;
+        cursor: default;
+        font-size: 14px;
+        left: 62px;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 20px;
+        overflow: hidden;
+        white-space: nowrap;
+        z-index: 12;
+        transition: 0.15s ease all;
+    }
+
+    .apexcharts-tooltip.light {
+        border: 1px solid #e3e3e3;
+        background: rgba(255, 255, 255, 0.96);
+    }
+
+    .apexcharts-tooltip.dark {
+        color: #fff;
+        background: rgba(30, 30, 30, 0.8);
+    }
+
+    .apexcharts-tooltip * {
+        font-family: inherit;
+    }
+
+    .apexcharts-tooltip .apexcharts-marker,
+    .apexcharts-area-series .apexcharts-area,
+    .apexcharts-line {
+        pointer-events: none;
+    }
+
+    .apexcharts-tooltip.active {
+        opacity: 1;
+        transition: 0.15s ease all;
+    }
+
+    .apexcharts-tooltip-title {
+        padding: 6px;
+        font-size: 15px;
+        margin-bottom: 4px;
+    }
+
+    .apexcharts-tooltip.light .apexcharts-tooltip-title {
+        background: #ECEFF1;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .apexcharts-tooltip.dark .apexcharts-tooltip-title {
+        background: rgba(0, 0, 0, 0.7);
+        border-bottom: 1px solid #333;
+    }
+
+    .apexcharts-tooltip-text-value,
+    .apexcharts-tooltip-text-z-value {
+        display: inline-block;
+        font-weight: 600;
+        margin-left: 5px;
+    }
+
+    .apexcharts-tooltip-text-z-label:empty,
+    .apexcharts-tooltip-text-z-value:empty {
+        display: none;
+    }
+
+    .apexcharts-tooltip-text-value,
+    .apexcharts-tooltip-text-z-value {
+        font-weight: 600;
+    }
+
+    .apexcharts-tooltip-marker {
+        width: 12px;
+        height: 12px;
+        position: relative;
+        top: 0px;
+        margin-right: 10px;
+        border-radius: 50%;
+    }
+
+    .apexcharts-tooltip-series-group {
+        padding: 0 10px;
+        display: none;
+        text-align: left;
+        justify-content: left;
+        align-items: center;
+    }
+
+    .apexcharts-tooltip-series-group.active .apexcharts-tooltip-marker {
+        opacity: 1;
+    }
+
+    .apexcharts-tooltip-series-group.active,
+    .apexcharts-tooltip-series-group:last-child {
+        padding-bottom: 4px;
+    }
+
+    .apexcharts-tooltip-series-group-hidden {
+        opacity: 0;
+        height: 0;
+        line-height: 0;
+        padding: 0 !important;
+    }
+
+    .apexcharts-tooltip-y-group {
+        padding: 6px 0 5px;
+    }
+
+    .apexcharts-tooltip-candlestick {
+        padding: 4px 8px;
+    }
+
+    .apexcharts-tooltip-candlestick>div {
+        margin: 4px 0;
+    }
+
+    .apexcharts-tooltip-candlestick span.value {
+        font-weight: bold;
+    }
+
+    .apexcharts-tooltip-rangebar {
+        padding: 5px 8px;
+    }
+
+    .apexcharts-tooltip-rangebar .category {
+        font-weight: 600;
+        color: #777;
+    }
+
+    .apexcharts-tooltip-rangebar .series-name {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .apexcharts-xaxistooltip {
+        opacity: 0;
+        padding: 9px 10px;
+        pointer-events: none;
+        color: #373d3f;
+        font-size: 13px;
+        text-align: center;
+        border-radius: 2px;
+        position: absolute;
+        z-index: 10;
+        background: #ECEFF1;
+        border: 1px solid #90A4AE;
+        transition: 0.15s ease all;
+    }
+
+    .apexcharts-xaxistooltip.dark {
+        background: rgba(0, 0, 0, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        color: #fff;
+    }
+
+    .apexcharts-xaxistooltip:after,
+    .apexcharts-xaxistooltip:before {
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .apexcharts-xaxistooltip:after {
+        border-color: rgba(236, 239, 241, 0);
+        border-width: 6px;
+        margin-left: -6px;
+    }
+
+    .apexcharts-xaxistooltip:before {
+        border-color: rgba(144, 164, 174, 0);
+        border-width: 7px;
+        margin-left: -7px;
+    }
+
+    .apexcharts-xaxistooltip-bottom:after,
+    .apexcharts-xaxistooltip-bottom:before {
+        bottom: 100%;
+    }
+
+    .apexcharts-xaxistooltip-top:after,
+    .apexcharts-xaxistooltip-top:before {
+        top: 100%;
+    }
+
+    .apexcharts-xaxistooltip-bottom:after {
+        border-bottom-color: #ECEFF1;
+    }
+
+    .apexcharts-xaxistooltip-bottom:before {
+        border-bottom-color: #90A4AE;
+    }
+
+    .apexcharts-xaxistooltip-bottom.dark:after {
+        border-bottom-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .apexcharts-xaxistooltip-bottom.dark:before {
+        border-bottom-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .apexcharts-xaxistooltip-top:after {
+        border-top-color: #ECEFF1
+    }
+
+    .apexcharts-xaxistooltip-top:before {
+        border-top-color: #90A4AE;
+    }
+
+    .apexcharts-xaxistooltip-top.dark:after {
+        border-top-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .apexcharts-xaxistooltip-top.dark:before {
+        border-top-color: rgba(0, 0, 0, 0.5);
+    }
+
+
+    .apexcharts-xaxistooltip.active {
+        opacity: 1;
+        transition: 0.15s ease all;
+    }
+
+    .apexcharts-yaxistooltip {
+        opacity: 0;
+        padding: 4px 10px;
+        pointer-events: none;
+        color: #373d3f;
+        font-size: 13px;
+        text-align: center;
+        border-radius: 2px;
+        position: absolute;
+        z-index: 10;
+        background: #ECEFF1;
+        border: 1px solid #90A4AE;
+    }
+
+    .apexcharts-yaxistooltip.dark {
+        background: rgba(0, 0, 0, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        color: #fff;
+    }
+
+    .apexcharts-yaxistooltip:after,
+    .apexcharts-yaxistooltip:before {
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .apexcharts-yaxistooltip:after {
+        border-color: rgba(236, 239, 241, 0);
+        border-width: 6px;
+        margin-top: -6px;
+    }
+
+    .apexcharts-yaxistooltip:before {
+        border-color: rgba(144, 164, 174, 0);
+        border-width: 7px;
+        margin-top: -7px;
+    }
+
+    .apexcharts-yaxistooltip-left:after,
+    .apexcharts-yaxistooltip-left:before {
+        left: 100%;
+    }
+
+    .apexcharts-yaxistooltip-right:after,
+    .apexcharts-yaxistooltip-right:before {
+        right: 100%;
+    }
+
+    .apexcharts-yaxistooltip-left:after {
+        border-left-color: #ECEFF1;
+    }
+
+    .apexcharts-yaxistooltip-left:before {
+        border-left-color: #90A4AE;
+    }
+
+    .apexcharts-yaxistooltip-left.dark:after {
+        border-left-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .apexcharts-yaxistooltip-left.dark:before {
+        border-left-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .apexcharts-yaxistooltip-right:after {
+        border-right-color: #ECEFF1;
+    }
+
+    .apexcharts-yaxistooltip-right:before {
+        border-right-color: #90A4AE;
+    }
+
+    .apexcharts-yaxistooltip-right.dark:after {
+        border-right-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .apexcharts-yaxistooltip-right.dark:before {
+        border-right-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .apexcharts-yaxistooltip.active {
+        opacity: 1;
+    }
+
+    .apexcharts-xcrosshairs,
+    .apexcharts-ycrosshairs {
+        pointer-events: none;
+        opacity: 0;
+        transition: 0.15s ease all;
+    }
+
+    .apexcharts-xcrosshairs.active,
+    .apexcharts-ycrosshairs.active {
+        opacity: 1;
+        transition: 0.15s ease all;
+    }
+
+    .apexcharts-ycrosshairs-hidden {
+        opacity: 0;
+    }
+
+    .apexcharts-zoom-rect {
+        pointer-events: none;
+    }
+
+    .apexcharts-selection-rect {
+        cursor: move;
+    }
+
+    .svg_select_points,
+    .svg_select_points_rot {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .svg_select_points_l,
+    .svg_select_points_r {
+        cursor: ew-resize;
+        opacity: 1;
+        visibility: visible;
+        fill: #888;
+    }
+
+    .apexcharts-canvas.zoomable .hovering-zoom {
+        cursor: crosshair
+    }
+
+    .apexcharts-canvas.zoomable .hovering-pan {
+        cursor: move
+    }
+
+    .apexcharts-xaxis,
+    .apexcharts-yaxis {
+        pointer-events: none;
+    }
+
+    .apexcharts-zoom-icon,
+    .apexcharts-zoom-in-icon,
+    .apexcharts-zoom-out-icon,
+    .apexcharts-reset-zoom-icon,
+    .apexcharts-pan-icon,
+    .apexcharts-selection-icon,
+    .apexcharts-menu-icon,
+    .apexcharts-toolbar-custom-icon {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        line-height: 24px;
+        color: #6E8192;
+        text-align: center;
+    }
+
+
+    .apexcharts-zoom-icon svg,
+    .apexcharts-zoom-in-icon svg,
+    .apexcharts-zoom-out-icon svg,
+    .apexcharts-reset-zoom-icon svg,
+    .apexcharts-menu-icon svg {
+        fill: #6E8192;
+    }
+
+    .apexcharts-selection-icon svg {
+        fill: #444;
+        transform: scale(0.76)
+    }
+
+    .dark .apexcharts-zoom-icon svg,
+    .dark .apexcharts-zoom-in-icon svg,
+    .dark .apexcharts-zoom-out-icon svg,
+    .dark .apexcharts-reset-zoom-icon svg,
+    .dark .apexcharts-pan-icon svg,
+    .dark .apexcharts-selection-icon svg,
+    .dark .apexcharts-menu-icon svg,
+    .dark .apexcharts-toolbar-custom-icon svg {
+        fill: #f3f4f5;
+    }
+
+    .apexcharts-canvas .apexcharts-zoom-icon.selected svg,
+    .apexcharts-canvas .apexcharts-selection-icon.selected svg,
+    .apexcharts-canvas .apexcharts-reset-zoom-icon.selected svg {
+        fill: #008FFB;
+    }
+
+    .light .apexcharts-selection-icon:not(.selected):hover svg,
+    .light .apexcharts-zoom-icon:not(.selected):hover svg,
+    .light .apexcharts-zoom-in-icon:hover svg,
+    .light .apexcharts-zoom-out-icon:hover svg,
+    .light .apexcharts-reset-zoom-icon:hover svg,
+    .light .apexcharts-menu-icon:hover svg {
+        fill: #333;
+    }
+
+    .apexcharts-selection-icon,
+    .apexcharts-menu-icon {
+        position: relative;
+    }
+
+    .apexcharts-reset-zoom-icon {
+        margin-left: 5px;
+    }
+
+    .apexcharts-zoom-icon,
+    .apexcharts-reset-zoom-icon,
+    .apexcharts-menu-icon {
+        transform: scale(0.85);
+    }
+
+    .apexcharts-zoom-in-icon,
+    .apexcharts-zoom-out-icon {
+        transform: scale(0.7)
+    }
+
+    .apexcharts-zoom-out-icon {
+        margin-right: 3px;
+    }
+
+    .apexcharts-pan-icon {
+        transform: scale(0.62);
+        position: relative;
+        left: 1px;
+        top: 0px;
+    }
+
+    .apexcharts-pan-icon svg {
+        fill: #fff;
+        stroke: #6E8192;
+        stroke-width: 2;
+    }
+
+    .apexcharts-pan-icon.selected svg {
+        stroke: #008FFB;
+    }
+
+    .apexcharts-pan-icon:not(.selected):hover svg {
+        stroke: #333;
+    }
+
+    .apexcharts-toolbar {
+        position: absolute;
+        z-index: 11;
+        top: 0px;
+        right: 3px;
+        max-width: 176px;
+        text-align: right;
+        border-radius: 3px;
+        padding: 0px 6px 2px 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .apexcharts-toolbar svg {
+        pointer-events: none;
+    }
+
+    .apexcharts-menu {
+        background: #fff;
+        position: absolute;
+        top: 100%;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 3px;
+        right: 10px;
+        opacity: 0;
+        min-width: 110px;
+        transition: 0.15s ease all;
+        pointer-events: none;
+    }
+
+    .apexcharts-menu.open {
+        opacity: 1;
+        pointer-events: all;
+        transition: 0.15s ease all;
+    }
+
+    .apexcharts-menu-item {
+        padding: 6px 7px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .light .apexcharts-menu-item:hover {
+        background: #eee;
+    }
+
+    .dark .apexcharts-menu {
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+    }
+
+    @media screen and (min-width: 768px) {
+        .apexcharts-toolbar {
+            /*opacity: 0;*/
+        }
+
+        .apexcharts-canvas:hover .apexcharts-toolbar {
+            opacity: 1;
+        }
+    }
+
+    .apexcharts-datalabel.hidden {
+        opacity: 0;
+    }
+
+    .apexcharts-pie-label,
+    .apexcharts-datalabel,
+    .apexcharts-datalabel-label,
+    .apexcharts-datalabel-value {
+        cursor: default;
+        pointer-events: none;
+    }
+
+    .apexcharts-pie-label-delay {
+        opacity: 0;
+        animation-name: opaque;
+        animation-duration: 0.3s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease;
+    }
+
+    .apexcharts-canvas .hidden {
+        opacity: 0;
+    }
+
+    .apexcharts-hide .apexcharts-series-points {
+        opacity: 0;
+    }
+
+    .apexcharts-area-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events,
+    .apexcharts-line-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events,
+    .apexcharts-radar-series path,
+    .apexcharts-radar-series polygon {
+        pointer-events: none;
+    }
+
+    /* markers */
+
+    .apexcharts-marker {
+        transition: 0.15s ease all;
+    }
+
+    @keyframes opaque {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+    </style>
+    <script type="text/javascript" src="./assets/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="./assets/js/jquery.cookies.2.2.0.js"></script>
+    <script type="text/javascript" src="./assets/js/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="./assets/css/layer.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
 </head>
 
 <body>
@@ -26,144 +663,454 @@
                     </div><img src="https://a.static-global.com/xt/xt-ssr-web-index/_next/static/images/iPhone-dark-69a92f1afe2ba588733b9f91a0870957.png" class="index_banner-mobile__Ux5ci">
                 </div>
             </div>
-
-
             <div class="graph graph-padding text-white d-none d-md-block hide-mobile">
-        <div class="container-fluid">
-            <div class="row margin-balance">
-            <div class="col-lg-2 col-6">
-                    <a href="/Trade/index/market/doge_btc" class="graph-item-block">
-                        <div class="graph-item">
-                            <div class="graph-heading">
-                                <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/DOGE.png')"></div>
-                                <h5>DOGE / BTC</h5>
-                                <div class="rate green">0.422%</div>
-                            </div>
-                            <div class="graph-content">
-                                <div class="left-side">
-                                    <div class="lastprice">
-                                        <span class="price-change">0.00000237</span>
+                <div class="container-fluid">
+                    <div class="row margin-balance">
+                        <div class="col-lg-2 col-6">
+                            <a href="/Trade/index/market/doge_btc" class="graph-item-block">
+                                <div class="graph-item">
+                                    <div class="graph-heading">
+                                        <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/DOGE.png')"></div>
+                                        <h5>DOGE / BTC</h5>
+                                        <div class="rate green">0.422%</div>
                                     </div>
-                                    <span class="volume">Vol 18243646</span>
-                                </div>
-                                <div class="graph-chart">
-                                    <span class="updating-chart-one" style="display: none;">2,41,30,39,4,44,5,26,10,14,12,49,36,1,44,2,40,44,10,34,21</span><svg class="peity" height="30" width="150"><polygon fill="none" points="0 29 0 27.857142857142858 7.5 5.571428571428569 15 11.857142857142858 22.5 6.714285714285715 30 26.714285714285715 37.5 3.8571428571428577 45 26.142857142857142 52.5 14.142857142857142 60 23.285714285714285 67.5 21 75 22.142857142857142 82.5 1 90 8.428571428571427 97.5 28.428571428571427 105 3.8571428571428577 112.5 27.857142857142858 120 6.142857142857142 127.5 3.8571428571428577 135 23.285714285714285 142.5 9.571428571428573 150 17 150 29"></polygon><polyline fill="none" points="0 27.857142857142858 7.5 5.571428571428569 15 11.857142857142858 22.5 6.714285714285715 30 26.714285714285715 37.5 3.8571428571428577 45 26.142857142857142 52.5 14.142857142857142 60 23.285714285714285 67.5 21 75 22.142857142857142 82.5 1 90 8.428571428571427 97.5 28.428571428571427 105 3.8571428571428577 112.5 27.857142857142858 120 6.142857142857142 127.5 3.8571428571428577 135 23.285714285714285 142.5 9.571428571428573 150 17" stroke="#16b979" stroke-width="2" stroke-linecap="square"></polyline></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><div class="col-lg-2 col-6">
-                    <a href="/Trade/index/market/ltc_try" class="graph-item-block">
-                        <div class="graph-item">
-                            <div class="graph-heading">
-                                <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/LTC.png')"></div>
-                                <h5>LTC / TRY</h5>
-                                <div class="rate green">8.703%</div>
-                            </div>
-                            <div class="graph-content">
-                                <div class="left-side">
-                                    <div class="lastprice">
-                                        <span class="price-change">122.4</span>
+                                    <div class="graph-content">
+                                        <div class="left-side">
+                                            <div class="lastprice">
+                                                <span class="price-change">0.00000237</span>
+                                            </div>
+                                            <span class="volume">Vol 18243646</span>
+                                        </div>
+                                        <div class="graph-chart">
+                                            <span class="updating-chart-one" style="display: none;">2,41,30,39,4,44,5,26,10,14,12,49,36,1,44,2,40,44,10,34,21</span><svg class="peity" height="30" width="150">
+                                                <polygon fill="none" points="0 29 0 27.857142857142858 7.5 5.571428571428569 15 11.857142857142858 22.5 6.714285714285715 30 26.714285714285715 37.5 3.8571428571428577 45 26.142857142857142 52.5 14.142857142857142 60 23.285714285714285 67.5 21 75 22.142857142857142 82.5 1 90 8.428571428571427 97.5 28.428571428571427 105 3.8571428571428577 112.5 27.857142857142858 120 6.142857142857142 127.5 3.8571428571428577 135 23.285714285714285 142.5 9.571428571428573 150 17 150 29"></polygon>
+                                                <polyline fill="none" points="0 27.857142857142858 7.5 5.571428571428569 15 11.857142857142858 22.5 6.714285714285715 30 26.714285714285715 37.5 3.8571428571428577 45 26.142857142857142 52.5 14.142857142857142 60 23.285714285714285 67.5 21 75 22.142857142857142 82.5 1 90 8.428571428571427 97.5 28.428571428571427 105 3.8571428571428577 112.5 27.857142857142858 120 6.142857142857142 127.5 3.8571428571428577 135 23.285714285714285 142.5 9.571428571428573 150 17" stroke="#16b979" stroke-width="2" stroke-linecap="square"></polyline>
+                                            </svg>
+                                        </div>
                                     </div>
-                                    <span class="volume">Vol 658416.303</span>
                                 </div>
-                                <div class="graph-chart">
-                                    <span class="updating-chart-two" style="display: none;">4,4,3,1,1,2,1,1,3,2,3,5,1,4,2,3,4,1,1,1,4</span><svg class="peity" height="30" width="150"><polygon fill="none" points="0 29 0 6.599999999999998 7.5 6.599999999999998 15 12.2 22.5 23.4 30 23.4 37.5 17.799999999999997 45 23.4 52.5 23.4 60 12.2 67.5 17.799999999999997 75 12.2 82.5 1 90 23.4 97.5 6.599999999999998 105 17.799999999999997 112.5 12.2 120 6.599999999999998 127.5 23.4 135 23.4 142.5 23.4 150 6.599999999999998 150 29"></polygon><polyline fill="none" points="0 6.599999999999998 7.5 6.599999999999998 15 12.2 22.5 23.4 30 23.4 37.5 17.799999999999997 45 23.4 52.5 23.4 60 12.2 67.5 17.799999999999997 75 12.2 82.5 1 90 23.4 97.5 6.599999999999998 105 17.799999999999997 112.5 12.2 120 6.599999999999998 127.5 23.4 135 23.4 142.5 23.4 150 6.599999999999998" stroke="#e54c67" stroke-width="2" stroke-linecap="square"></polyline></svg>
-                                </div>
-                            </div>
+                            </a>
                         </div>
-                    </a>
-                </div><div class="col-lg-2 col-6">
-                    <a href="/Trade/index/market/eth_usdt" class="graph-item-block">
-                        <div class="graph-item">
-                            <div class="graph-heading">
-                                <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/ETH.png')"></div>
-                                <h5>ETH / USDT</h5>
-                                <div class="rate red">-0.543%</div>
-                            </div>
-                            <div class="graph-content">
-                                <div class="left-side">
-                                    <div class="lastprice">
-                                        <span class="price-change">1743.49</span>
+                        <div class="col-lg-2 col-6">
+                            <a href="/Trade/index/market/ltc_try" class="graph-item-block">
+                                <div class="graph-item">
+                                    <div class="graph-heading">
+                                        <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/LTC.png')"></div>
+                                        <h5>LTC / TRY</h5>
+                                        <div class="rate green">8.703%</div>
                                     </div>
-                                    <span class="volume">Vol 306018.436</span>
-                                </div>
-                                <div class="graph-chart">
-                                    <span class="updating-chart-three" style="display: none;">1,2,2,1,4,1,3,1,1,3,1,2,2,2,2,4,5,0,5,1,1</span><svg class="peity" height="30" width="150"><polygon fill="none" points="0 29 0 23.4 7.5 17.799999999999997 15 17.799999999999997 22.5 23.4 30 6.599999999999998 37.5 23.4 45 12.2 52.5 23.4 60 23.4 67.5 12.2 75 23.4 82.5 17.799999999999997 90 17.799999999999997 97.5 17.799999999999997 105 17.799999999999997 112.5 6.599999999999998 120 1 127.5 29 135 1 142.5 23.4 150 23.4 150 29"></polygon><polyline fill="none" points="0 23.4 7.5 17.799999999999997 15 17.799999999999997 22.5 23.4 30 6.599999999999998 37.5 23.4 45 12.2 52.5 23.4 60 23.4 67.5 12.2 75 23.4 82.5 17.799999999999997 90 17.799999999999997 97.5 17.799999999999997 105 17.799999999999997 112.5 6.599999999999998 120 1 127.5 29 135 1 142.5 23.4 150 23.4" stroke="#e54c67" stroke-width="2" stroke-linecap="square"></polyline></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><div class="col-lg-2 col-6">
-                    <a href="/Trade/index/market/ltc_btc" class="graph-item-block">
-                        <div class="graph-item">
-                            <div class="graph-heading">
-                                <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/LTC.png')"></div>
-                                <h5>LTC / BTC</h5>
-                                <div class="rate red">-0.1%</div>
-                            </div>
-                            <div class="graph-content">
-                                <div class="left-side">
-                                    <div class="lastprice">
-                                        <span class="price-change">0.002992</span>
+                                    <div class="graph-content">
+                                        <div class="left-side">
+                                            <div class="lastprice">
+                                                <span class="price-change">122.4</span>
+                                            </div>
+                                            <span class="volume">Vol 658416.303</span>
+                                        </div>
+                                        <div class="graph-chart">
+                                            <span class="updating-chart-two" style="display: none;">4,4,3,1,1,2,1,1,3,2,3,5,1,4,2,3,4,1,1,1,4</span><svg class="peity" height="30" width="150">
+                                                <polygon fill="none" points="0 29 0 6.599999999999998 7.5 6.599999999999998 15 12.2 22.5 23.4 30 23.4 37.5 17.799999999999997 45 23.4 52.5 23.4 60 12.2 67.5 17.799999999999997 75 12.2 82.5 1 90 23.4 97.5 6.599999999999998 105 17.799999999999997 112.5 12.2 120 6.599999999999998 127.5 23.4 135 23.4 142.5 23.4 150 6.599999999999998 150 29"></polygon>
+                                                <polyline fill="none" points="0 6.599999999999998 7.5 6.599999999999998 15 12.2 22.5 23.4 30 23.4 37.5 17.799999999999997 45 23.4 52.5 23.4 60 12.2 67.5 17.799999999999997 75 12.2 82.5 1 90 23.4 97.5 6.599999999999998 105 17.799999999999997 112.5 12.2 120 6.599999999999998 127.5 23.4 135 23.4 142.5 23.4 150 6.599999999999998" stroke="#e54c67" stroke-width="2" stroke-linecap="square"></polyline>
+                                            </svg>
+                                        </div>
                                     </div>
-                                    <span class="volume">Vol 53892.614</span>
                                 </div>
-                                <div class="graph-chart">
-                                    <span class="updating-chart-four" style="display: none;">3,5,2,3,1,3,4,0,4,3,2,4,5,1,4,4,0,4,5,1,0</span><svg class="peity" height="30" width="150"><polygon fill="none" points="0 29 0 12.2 7.5 1 15 17.799999999999997 22.5 12.2 30 23.4 37.5 12.2 45 6.599999999999998 52.5 29 60 6.599999999999998 67.5 12.2 75 17.799999999999997 82.5 6.599999999999998 90 1 97.5 23.4 105 6.599999999999998 112.5 6.599999999999998 120 29 127.5 6.599999999999998 135 1 142.5 23.4 150 29 150 29"></polygon><polyline fill="none" points="0 12.2 7.5 1 15 17.799999999999997 22.5 12.2 30 23.4 37.5 12.2 45 6.599999999999998 52.5 29 60 6.599999999999998 67.5 12.2 75 17.799999999999997 82.5 6.599999999999998 90 1 97.5 23.4 105 6.599999999999998 112.5 6.599999999999998 120 29 127.5 6.599999999999998 135 1 142.5 23.4 150 29" stroke="#16b979" stroke-width="2" stroke-linecap="square"></polyline></svg>
-                                </div>
-                            </div>
+                            </a>
                         </div>
-                    </a>
-                </div><div class="col-lg-2 col-6">
-                    <a href="/Trade/index/market/btc_usdt" class="graph-item-block">
-                        <div class="graph-item">
-                            <div class="graph-heading">
-                                <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/BTC.png')"></div>
-                                <h5>BTC / USDT</h5>
-                                <div class="rate green">0.047%</div>
-                            </div>
-                            <div class="graph-content">
-                                <div class="left-side">
-                                    <div class="lastprice">
-                                        <span class="price-change">25914.26</span>
+                        <div class="col-lg-2 col-6">
+                            <a href="/Trade/index/market/eth_usdt" class="graph-item-block">
+                                <div class="graph-item">
+                                    <div class="graph-heading">
+                                        <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/ETH.png')"></div>
+                                        <h5>ETH / USDT</h5>
+                                        <div class="rate red">-0.543%</div>
                                     </div>
-                                    <span class="volume">Vol 30173.93624</span>
-                                </div>
-                                <div class="graph-chart">
-                                    <span class="updating-chart-five" style="display: none;">1,4,3,4,3,4,1,5,1,2,5,1,0,4,3,1,5,2,1,2,5</span><svg class="peity" height="30" width="150"><polygon fill="none" points="0 29 0 23.4 7.5 6.599999999999998 15 12.2 22.5 6.599999999999998 30 12.2 37.5 6.599999999999998 45 23.4 52.5 1 60 23.4 67.5 17.799999999999997 75 1 82.5 23.4 90 29 97.5 6.599999999999998 105 12.2 112.5 23.4 120 1 127.5 17.799999999999997 135 23.4 142.5 17.799999999999997 150 1 150 29"></polygon><polyline fill="none" points="0 23.4 7.5 6.599999999999998 15 12.2 22.5 6.599999999999998 30 12.2 37.5 6.599999999999998 45 23.4 52.5 1 60 23.4 67.5 17.799999999999997 75 1 82.5 23.4 90 29 97.5 6.599999999999998 105 12.2 112.5 23.4 120 1 127.5 17.799999999999997 135 23.4 142.5 17.799999999999997 150 1" stroke="#e54c67" stroke-width="2" stroke-linecap="square"></polyline></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><div class="col-lg-2 col-6">
-                    <a href="/Trade/index/market/eth_btc" class="graph-item-block">
-                        <div class="graph-item">
-                            <div class="graph-heading">
-                                <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/ETH.png')"></div>
-                                <h5>ETH / BTC</h5>
-                                <div class="rate red">-0.606%</div>
-                            </div>
-                            <div class="graph-content">
-                                <div class="left-side">
-                                    <div class="lastprice">
-                                        <span class="price-change">0.06727</span>
+                                    <div class="graph-content">
+                                        <div class="left-side">
+                                            <div class="lastprice">
+                                                <span class="price-change">1743.49</span>
+                                            </div>
+                                            <span class="volume">Vol 306018.436</span>
+                                        </div>
+                                        <div class="graph-chart">
+                                            <span class="updating-chart-three" style="display: none;">1,2,2,1,4,1,3,1,1,3,1,2,2,2,2,4,5,0,5,1,1</span><svg class="peity" height="30" width="150">
+                                                <polygon fill="none" points="0 29 0 23.4 7.5 17.799999999999997 15 17.799999999999997 22.5 23.4 30 6.599999999999998 37.5 23.4 45 12.2 52.5 23.4 60 23.4 67.5 12.2 75 23.4 82.5 17.799999999999997 90 17.799999999999997 97.5 17.799999999999997 105 17.799999999999997 112.5 6.599999999999998 120 1 127.5 29 135 1 142.5 23.4 150 23.4 150 29"></polygon>
+                                                <polyline fill="none" points="0 23.4 7.5 17.799999999999997 15 17.799999999999997 22.5 23.4 30 6.599999999999998 37.5 23.4 45 12.2 52.5 23.4 60 23.4 67.5 12.2 75 23.4 82.5 17.799999999999997 90 17.799999999999997 97.5 17.799999999999997 105 17.799999999999997 112.5 6.599999999999998 120 1 127.5 29 135 1 142.5 23.4 150 23.4" stroke="#e54c67" stroke-width="2" stroke-linecap="square"></polyline>
+                                            </svg>
+                                        </div>
                                     </div>
-                                    <span class="volume">Vol 18630.6178</span>
                                 </div>
-                                <div class="graph-chart">
-                                    <span class="updating-chart-six" style="display: none;">2,3,5,4,3,3,3,4,3,5,0,4,2,2,4,4,3,1,2,3,1</span><svg class="peity" height="30" width="150"><polygon fill="none" points="0 29 0 17.799999999999997 7.5 12.2 15 1 22.5 6.599999999999998 30 12.2 37.5 12.2 45 12.2 52.5 6.599999999999998 60 12.2 67.5 1 75 29 82.5 6.599999999999998 90 17.799999999999997 97.5 17.799999999999997 105 6.599999999999998 112.5 6.599999999999998 120 12.2 127.5 23.4 135 17.799999999999997 142.5 12.2 150 23.4 150 29"></polygon><polyline fill="none" points="0 17.799999999999997 7.5 12.2 15 1 22.5 6.599999999999998 30 12.2 37.5 12.2 45 12.2 52.5 6.599999999999998 60 12.2 67.5 1 75 29 82.5 6.599999999999998 90 17.799999999999997 97.5 17.799999999999997 105 6.599999999999998 112.5 6.599999999999998 120 12.2 127.5 23.4 135 17.799999999999997 142.5 12.2 150 23.4" stroke="#e54c67" stroke-width="2" stroke-linecap="square"></polyline></svg>
-                                </div>
-                            </div>
+                            </a>
                         </div>
-                    </a>
-                </div>          </div>
+                        <div class="col-lg-2 col-6">
+                            <a href="/Trade/index/market/ltc_btc" class="graph-item-block">
+                                <div class="graph-item">
+                                    <div class="graph-heading">
+                                        <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/LTC.png')"></div>
+                                        <h5>LTC / BTC</h5>
+                                        <div class="rate red">-0.1%</div>
+                                    </div>
+                                    <div class="graph-content">
+                                        <div class="left-side">
+                                            <div class="lastprice">
+                                                <span class="price-change">0.002992</span>
+                                            </div>
+                                            <span class="volume">Vol 53892.614</span>
+                                        </div>
+                                        <div class="graph-chart">
+                                            <span class="updating-chart-four" style="display: none;">3,5,2,3,1,3,4,0,4,3,2,4,5,1,4,4,0,4,5,1,0</span><svg class="peity" height="30" width="150">
+                                                <polygon fill="none" points="0 29 0 12.2 7.5 1 15 17.799999999999997 22.5 12.2 30 23.4 37.5 12.2 45 6.599999999999998 52.5 29 60 6.599999999999998 67.5 12.2 75 17.799999999999997 82.5 6.599999999999998 90 1 97.5 23.4 105 6.599999999999998 112.5 6.599999999999998 120 29 127.5 6.599999999999998 135 1 142.5 23.4 150 29 150 29"></polygon>
+                                                <polyline fill="none" points="0 12.2 7.5 1 15 17.799999999999997 22.5 12.2 30 23.4 37.5 12.2 45 6.599999999999998 52.5 29 60 6.599999999999998 67.5 12.2 75 17.799999999999997 82.5 6.599999999999998 90 1 97.5 23.4 105 6.599999999999998 112.5 6.599999999999998 120 29 127.5 6.599999999999998 135 1 142.5 23.4 150 29" stroke="#16b979" stroke-width="2" stroke-linecap="square"></polyline>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-6">
+                            <a href="/Trade/index/market/btc_usdt" class="graph-item-block">
+                                <div class="graph-item">
+                                    <div class="graph-heading">
+                                        <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/BTC.png')"></div>
+                                        <h5>BTC / USDT</h5>
+                                        <div class="rate green">0.047%</div>
+                                    </div>
+                                    <div class="graph-content">
+                                        <div class="left-side">
+                                            <div class="lastprice">
+                                                <span class="price-change">25914.26</span>
+                                            </div>
+                                            <span class="volume">Vol 30173.93624</span>
+                                        </div>
+                                        <div class="graph-chart">
+                                            <span class="updating-chart-five" style="display: none;">1,4,3,4,3,4,1,5,1,2,5,1,0,4,3,1,5,2,1,2,5</span><svg class="peity" height="30" width="150">
+                                                <polygon fill="none" points="0 29 0 23.4 7.5 6.599999999999998 15 12.2 22.5 6.599999999999998 30 12.2 37.5 6.599999999999998 45 23.4 52.5 1 60 23.4 67.5 17.799999999999997 75 1 82.5 23.4 90 29 97.5 6.599999999999998 105 12.2 112.5 23.4 120 1 127.5 17.799999999999997 135 23.4 142.5 17.799999999999997 150 1 150 29"></polygon>
+                                                <polyline fill="none" points="0 23.4 7.5 6.599999999999998 15 12.2 22.5 6.599999999999998 30 12.2 37.5 6.599999999999998 45 23.4 52.5 1 60 23.4 67.5 17.799999999999997 75 1 82.5 23.4 90 29 97.5 6.599999999999998 105 12.2 112.5 23.4 120 1 127.5 17.799999999999997 135 23.4 142.5 17.799999999999997 150 1" stroke="#e54c67" stroke-width="2" stroke-linecap="square"></polyline>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-6">
+                            <a href="/Trade/index/market/eth_btc" class="graph-item-block">
+                                <div class="graph-item">
+                                    <div class="graph-heading">
+                                        <div class="icon" style="background-image: url('/Upload/coin/Upload/coin/ETH.png')"></div>
+                                        <h5>ETH / BTC</h5>
+                                        <div class="rate red">-0.606%</div>
+                                    </div>
+                                    <div class="graph-content">
+                                        <div class="left-side">
+                                            <div class="lastprice">
+                                                <span class="price-change">0.06727</span>
+                                            </div>
+                                            <span class="volume">Vol 18630.6178</span>
+                                        </div>
+                                        <div class="graph-chart">
+                                            <span class="updating-chart-six" style="display: none;">2,3,5,4,3,3,3,4,3,5,0,4,2,2,4,4,3,1,2,3,1</span><svg class="peity" height="30" width="150">
+                                                <polygon fill="none" points="0 29 0 17.799999999999997 7.5 12.2 15 1 22.5 6.599999999999998 30 12.2 37.5 12.2 45 12.2 52.5 6.599999999999998 60 12.2 67.5 1 75 29 82.5 6.599999999999998 90 17.799999999999997 97.5 17.799999999999997 105 6.599999999999998 112.5 6.599999999999998 120 12.2 127.5 23.4 135 17.799999999999997 142.5 12.2 150 23.4 150 29"></polygon>
+                                                <polyline fill="none" points="0 17.799999999999997 7.5 12.2 15 1 22.5 6.599999999999998 30 12.2 37.5 12.2 45 12.2 52.5 6.599999999999998 60 12.2 67.5 1 75 29 82.5 6.599999999999998 90 17.799999999999997 97.5 17.799999999999997 105 6.599999999999998 112.5 6.599999999999998 120 12.2 127.5 23.4 135 17.799999999999997 142.5 12.2 150 23.4" stroke="#e54c67" stroke-width="2" stroke-linecap="square"></polyline>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        <!-- Annoucements -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="announcements-block d-flex align-items-center">
+                        <div class="icon">
+                            <i class="ion ion-md-megaphone"></i>
+                        </div>
+                        <div class="announcements-single-item slick-initialized slick-slider slick-vertical">
+                            <a href="/Article/detail/id/128" tabindex="-1">Which Is The Best Cryptocurrency For Long-Term Investment? Find Out...</a>
+                            <a href="/Article/detail/id/128" tabindex="-1">Which Is The Best Cryptocurrency For Long-Term Investment? Find Out...</a>
+                            <a href="/Article/detail/id/128" tabindex="-1">Which Is The Best Cryptocurrency For Long-Term Investment? Find Out...</a>
+                            <a href="/Article/detail/id/128" tabindex="-1">Which Is The Best Cryptocurrency For Long-Term Investment? Find Out...</a>
+                            <a href="/Article/detail/id/128" tabindex="-1">Which Is The Best Cryptocurrency For Long-Term Investment? Find Out...</a>
+                        </div>
+                        <div class="read-more ml-auto">
+                            <a href="/Index/Article">More <i class="ion ion-md-arrow-forward"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Home Banner Start -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="home-small-banners slick-initialized slick-slider slick-dotted">
+                        <a href="#" tabindex="-1"><img src="./assets/images/1.png" alt="Banner1" class="img-fluid m-auto"></a>
+                        <a href="#" tabindex="-1"><img src="./assets/images/2.png" alt="Banner2" class="img-fluid m-auto"></a>
+                        <a href="#" tabindex="-1"><img src="./assets/images/3.png" alt="Banner3" class="img-fluid m-auto"></a>
+                        <a href="#" tabindex="-1"><img src="./assets/images/4.png" alt="Banner4" class="img-fluid m-auto"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Home Banner END  -->
+        <!-- Top Coin Info -->
+        <div class="market-group-container index_market-group-container__wAuIy">
+            <div class="index_tabs-content__YGtm_">
+                <div class="index_tab-active__SZvvs">Hot Coins</div>
+                <div class="">New Coins</div>
+                <div class="">Top Gainers</div>
+                <div class="">Top Losers</div>
+                <div class="">Hot Futures</div>
+            </div>
+            <div class="market-group-container-view index_market-list-view__s6ZyS">
+                <ul class="index_list-header__aILVN">
+                    <li>Name</li>
+                    <li>Last Price</li>
+                    <li>24H Change</li>
+                    <li>Crypto Markets</li>
+                    <li>Operation</li>
+                </ul>
+                <div class="index_xt-pane-container__4f629 undefined index_list-content__dME4M" style="min-height:undefinedpx">
+                    <ul class="index_list-content-ul__3ZsrS">
+                        <li><img src="https://a.static-global.com/1/currency/btc.png" alt=""><span class="index_text-uppercase__bP7nc" style="font-size: 16px;">btc</span><span style="margin-top: 2px;">/</span><span class="index_text-uppercase__bP7nc" style="margin-top: 2px;">usdt</span></li>
+                        <li class="index_last-price-li__J2Qs2">
+                            <div class="index_last-price-li-div__3Ozy_">
+                                <div class="index_last-price__LkrcI"><span>26,539.83 </span></div>
+                            </div>
+                        </li>
+                        <li><span class="index_up-color__Y2MvT">+0.16%</span></li>
+                        <li><canvas role="img" height="50" width="150" style="box-sizing: border-box; display: block; height: 40px; width: 120px;"></canvas></li>
+                        <li>
+                            <div class="index_list-content-li-trade__uACOd">Trade</div>
+                        </li>
+                    </ul>
+                    <ul class="index_list-content-ul__3ZsrS">
+                        <li><img src="https://a.static-global.com/1/currency/eth.png" alt=""><span class="index_text-uppercase__bP7nc" style="font-size: 16px;">eth</span><span style="margin-top: 2px;">/</span><span class="index_text-uppercase__bP7nc" style="margin-top: 2px;">usdt</span></li>
+                        <li class="index_last-price-li__J2Qs2">
+                            <div class="index_last-price-li-div__3Ozy_">
+                                <div class="index_last-price__LkrcI"><span>1,739.27 </span></div>
+                            </div>
+                        </li>
+                        <li><span class="index_up-color__Y2MvT">+0.24%</span></li>
+                        <li><canvas role="img" height="50" width="150" style="box-sizing: border-box; display: block; height: 40px; width: 120px;"></canvas></li>
+                        <li>
+                            <div class="index_list-content-li-trade__uACOd">Trade</div>
+                        </li>
+                    </ul>
+                    <ul class="index_list-content-ul__3ZsrS">
+                        <li><img src="https://a.static-global.com/1/currency/btc.png" alt=""><span class="index_text-uppercase__bP7nc" style="font-size: 16px;">btc</span><span style="margin-top: 2px;">/</span><span class="index_text-uppercase__bP7nc" style="margin-top: 2px;">busd</span></li>
+                        <li class="index_last-price-li__J2Qs2">
+                            <div class="index_last-price-li-div__3Ozy_">
+                                <div class="index_last-price__LkrcI"><span>26,526.15 </span></div>
+                            </div>
+                        </li>
+                        <li><span class="index_up-color__Y2MvT">+0.15%</span></li>
+                        <li><canvas role="img" height="50" width="150" style="box-sizing: border-box; display: block; height: 40px; width: 120px;"></canvas></li>
+                        <li>
+                            <div class="index_list-content-li-trade__uACOd">Trade</div>
+                        </li>
+                    </ul>
+                    <ul class="index_list-content-ul__3ZsrS">
+                        <li><img src="https://a.static-global.com/1/currency/dot.png" alt=""><span class="index_text-uppercase__bP7nc" style="font-size: 16px;">dot</span><span style="margin-top: 2px;">/</span><span class="index_text-uppercase__bP7nc" style="margin-top: 2px;">usdt</span></li>
+                        <li class="index_last-price-li__J2Qs2">
+                            <div class="index_last-price-li-div__3Ozy_">
+                                <div class="index_last-price__LkrcI"><span>4.620 </span></div>
+                            </div>
+                        </li>
+                        <li><span class="index_up-color__Y2MvT">+2.18%</span></li>
+                        <li><canvas role="img" height="50" width="150" style="box-sizing: border-box; display: block; height: 40px; width: 120px;"></canvas></li>
+                        <li>
+                            <div class="index_list-content-li-trade__uACOd">Trade</div>
+                        </li>
+                    </ul>
+                    <ul class="index_list-content-ul__3ZsrS">
+                        <li><img src="https://a.static-global.com/1/currency/eth.png" alt=""><span class="index_text-uppercase__bP7nc" style="font-size: 16px;">eth</span><span style="margin-top: 2px;">/</span><span class="index_text-uppercase__bP7nc" style="margin-top: 2px;">xtusd</span></li>
+                        <li class="index_last-price-li__J2Qs2">
+                            <div class="index_last-price-li-div__3Ozy_">
+                                <div class="index_last-price__LkrcI"><span>1,738.56 </span></div>
+                            </div>
+                        </li>
+                        <li><span class="index_up-color__Y2MvT">+0.24%</span></li>
+                        <li><canvas role="img" height="50" width="150" style="box-sizing: border-box; display: block; height: 40px; width: 120px;"></canvas></li>
+                        <li>
+                            <div class="index_list-content-li-trade__uACOd">Trade</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="index_viewmore-wrapper__i1ijB "><a href="https://www.xt.com/en/market" class="index_viewmore__c3tII" style="color: #ffbe40; text-decoration: none;"><span style="flex: 0 0 auto;">View more</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAUCAYAAABWMrcvAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACQSURBVHgBldNtCoAgDAbgrS4mROdqniskb2ZqkF/T6Qv90HzmQAXI4oy6wgdCMAd+RN8ACA+rh8jdSsEOT/FnALcoT2v9Il2Vo16rWBQ3ivzMJe2IdZUZ2KAZyCIJdtEQghAObiDH1RNSe+mWpBIal8FhCVcB254EGjQDCjQLftR5GiwI4Z/GADQJpx9vgJAXn21rgg82CEYAAAAASUVORK5CYII=" class="index_more-img__DVbsB"></a></div>
+            </div>
+        </div>
+        <!-- Digital assets -->
+        <div class="home-guide-container index_home-guide-container__whIS1">
+            <div class="home-guide-container-step index_guide-step__mZs6g">
+                <div class="index_action__5fDia"><img src="//a.static-global.com/xt/xt-ssr-web-index/_next/static/images/topClass_dark-744d5b640cd455692774369b71e45b1b.png" class="index_action-img0___YfvQ">
+                    <div>
+                        <h3 class="index_action-title__qTPV8">Top-class experience in digital assets investment</h3>
+                        <p class="index_action-text__KEzr7">With low barriers to entry, we will offer you a one-stop investment service in derivatives and finance based on spot trading.</p>
+                    </div>
+                </div>
+                <div class="index_action__5fDia"><img src="//a.static-global.com/xt/xt-ssr-web-index/_next/static/images/topSecurity_dark-5650f4559619c23a6a01772d8b43e5f7.png" class="index_action-img2__sSl7s">
+                    <div>
+                        <h3 class="index_action-title__qTPV8">Top security risk control system</h3>
+                        <p class="index_action-text__KEzr7">Industry-leading security technology and 24/7 platform monitoring ensure that your assets are protected in all aspects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="index_action1__1W6LR">
+            <div>
+                <h3 class="index_action-title__qTPV8">Diversified trading options</h3>
+                <p class="index_action-text__KEzr7">A wide range of trading products can help you explore and play with cryptocurrencies, including spot, leverage, futures, ETF, index, and other trading varieties.</p>
+            </div>
+        </div>
+        <div class="home-nfts-container index_home-nfts-container__uwfoS">
+            <h2 class="index_nfts-title__uaXaQ undefined">Explore Our Products</h2>
+            <div class="index_nfts-actions__IWvap home-nfts-container-actions">
+                <div class="index_action__DXw_k">
+                    <p class="index_action-title__8iR2K">Ultra-low trading fees,<br><span>800+</span> cryptocurrencies</p>
+                    <div class="index_action-bottom__frijz">
+                        <div class="index_action-text__jBOh5"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAaCAYAAADFTB7LAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFeSURBVHgB7ZbNTcNAEEa/DZG4IMUlhA5SwlqcuKUDoAOogNABHRAqMDckFHA6CB3gEnLlNMyscRTnZ23Hmo0Peae1duy8eHbGA5zIocRGOIAeAkAfdoQBfii1N2iIuiC92yH6SHgZgTClT/vY5H4DRZzcOVJeDssbmJir+VOdZ6gJujM3wAKbcqsAPLPkQ9Vz9FJ8gREkrfswuKcvu+Bz6S0e3RSnnGLakeIyGX4Rm+t5tmtTVVBoK6lexSbmHzWIefntCXPF5NrR5v1c9i8IQ8Si48oog1v+U6+rSz6ohK6x1oaCfEkaYzApGno332DOkkUvu/kGc7mYz+Kyi4KFnKv6Pl/cIRQEmWasJ6IkJ6g36gKa8ajVw9QTsiUnBBE8VE7Q/9S1kBN0h4WWcoLePDizY5ZLPCGVcoJemzlzw0G2Z7eWnHCMebC2nBB6HmwkJ4RpM7nk2/8oVVtO+AN1sooQe3McvwAAAABJRU5ErkJggg=="><a href="https://www.xt.com/en/trade/btc_usdt">Spot</a></div><img class="index_action-img__vtimI" src="//a.static-global.com/xt/xt-ssr-web-index/_next/static/images/SPOT_dark-fc0a2c39a2f45fb5b7c40094dda6d224.png">
+                    </div>
+                </div>
+                <div class="index_action__DXw_k">
+                    <p class="index_action-title__8iR2K">Up to <span>125x</span> leverage,<br>USDT/COIN-M products are available at your choice</p>
+                    <div class="index_action-bottom__frijz">
+                        <div class="index_action-text__jBOh5"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAaCAYAAADFTB7LAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFeSURBVHgB7ZbNTcNAEEa/DZG4IMUlhA5SwlqcuKUDoAOogNABHRAqMDckFHA6CB3gEnLlNMyscRTnZ23Hmo0Peae1duy8eHbGA5zIocRGOIAeAkAfdoQBfii1N2iIuiC92yH6SHgZgTClT/vY5H4DRZzcOVJeDssbmJir+VOdZ6gJujM3wAKbcqsAPLPkQ9Vz9FJ8gREkrfswuKcvu+Bz6S0e3RSnnGLakeIyGX4Rm+t5tmtTVVBoK6lexSbmHzWIefntCXPF5NrR5v1c9i8IQ8Si48oog1v+U6+rSz6ohK6x1oaCfEkaYzApGno332DOkkUvu/kGc7mYz+Kyi4KFnKv6Pl/cIRQEmWasJ6IkJ6g36gKa8ajVw9QTsiUnBBE8VE7Q/9S1kBN0h4WWcoLePDizY5ZLPCGVcoJemzlzw0G2Z7eWnHCMebC2nBB6HmwkJ4RpM7nk2/8oVVtO+AN1sooQe3McvwAAAABJRU5ErkJggg=="><a href="https://www.xt.com/en/futures/trade/btc_usdt">Futures</a></div><img class="index_action-img__vtimI" src="//a.static-global.com/xt/xt-ssr-web-index/_next/static/images/futures_dark-12400509a3f5eb7ccd812b3b286502d0.png">
+                    </div>
+                </div>
+                <div class="index_action__DXw_k">
+                    <p class="index_action-title__8iR2K">Earn great rewards from your crypto holdings</p>
+                    <div class="index_action-bottom__frijz">
+                        <div class="index_action-text__jBOh5"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAaCAYAAADFTB7LAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFeSURBVHgB7ZbNTcNAEEa/DZG4IMUlhA5SwlqcuKUDoAOogNABHRAqMDckFHA6CB3gEnLlNMyscRTnZ23Hmo0Peae1duy8eHbGA5zIocRGOIAeAkAfdoQBfii1N2iIuiC92yH6SHgZgTClT/vY5H4DRZzcOVJeDssbmJir+VOdZ6gJujM3wAKbcqsAPLPkQ9Vz9FJ8gREkrfswuKcvu+Bz6S0e3RSnnGLakeIyGX4Rm+t5tmtTVVBoK6lexSbmHzWIefntCXPF5NrR5v1c9i8IQ8Si48oog1v+U6+rSz6ohK6x1oaCfEkaYzApGno332DOkkUvu/kGc7mYz+Kyi4KFnKv6Pl/cIRQEmWasJ6IkJ6g36gKa8ajVw9QTsiUnBBE8VE7Q/9S1kBN0h4WWcoLePDizY5ZLPCGVcoJemzlzw0G2Z7eWnHCMebC2nBB6HmwkJ4RpM7nk2/8oVVtO+AN1sooQe3McvwAAAABJRU5ErkJggg=="><a href="https://www.xt.com/finance/index">Savings</a></div><img class="index_action-img__vtimI" src="//a.static-global.com/xt/xt-ssr-web-index/_next/static/images/Savings_dark-a805aa37de0741945ba3551f5e9fef31.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cryto Lending Space -->
+        <section class="apps text-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-12 order-lg-2 align-items-self">
+                        <div class="appss-content">
+                            <h2 class="apps-title text-white">Download CRYPTIMIZE App for the best coin buying and selling experience!</h2>
+                            <ul class="apps-property">
+                                <li>Easily sign up in a few minutes with the mobile app</li>
+                                <li>Access your assets whenever you want</li>
+                                <li>Trade anytime, anywhere, 24/7</li>
+                                <li>Tablet and mobile multi-device support</li>
+                            </ul>
+                            <div class="row">
+                                <div class="col-auto apps-qr">
+                                    <img src="./assets/images/5a2557a174748.png" class="img-fluid">
+                                </div>
+                                <div class="col-auto download-buttons">
+                                    <a style="display: flex;" href="#" class="items-center gap-2 flex space-x-2 align-center ">
+                                        <svg fill="none" class="w-[20px] h-[20px] fill-white" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
+                                        </svg> Google Play </a>
+                                    <a style="display: flex;" href="#" class="items-center gap-2 flex space-x-2 align-center ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon w-[20px] h-[20px]" style="width: 1em;height: 1em;vertical-align: middle;fill: white;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1">
+                                            <path d="M848.043196 344.643936C763.162084 392.971903 724.868313 464.542346 733.161884 559.355264 741.455454 654.270573 789.783422 718.366563 878.043396 751.643236 858.077392 793.315868 835.551645 834.066993 810.568543 874.10139 745.653435 973.931407 686.574543 1023.89761 633.229477 1023.89761c-19.966003 0-46.587341-7.474453-79.864014-22.525747C520.088791 986.422958 487.631237 978.948505 455.992801 978.948505c-31.638436 0-63.686431 7.474453-96.143986 22.423358C327.391261 1016.423158 301.179482 1023.89761 281.111089 1023.89761c-56.621538 0-115.70043-46.587341-177.339066-139.864414C45.614639 794.134987 11.826017 699.629237 2.713329 600.618338-6.50175 501.607439 8.139986 424.507949 46.433757 369.627037 101.314669 283.107689 172.885111 239.694431 261.145085 239.694431c28.259574 0 62.867313 7.474453 103.618438 22.423358 40.751125 14.948905 71.160884 22.525747 91.126887 22.525747s49.147085-7.474453 87.440856-22.525747C581.625037 247.271273 617.461454 239.694431 650.738126 239.694431 725.687431 239.694431 791.421658 274.711729 848.043196 344.643936zM580.805919 167.30487c-43.310869 56.621538-95.734427 83.242876-157.373063 79.864014C415.139286 192.287971 432.647935 138.226177 475.958804 84.881112 519.269673 33.379062 570.874113 5.017098 630.772123 0 639.065693 56.621538 622.478552 112.423958 580.805919 167.30487z" /></svg> App Store </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-12 order-lg-1 align-items-end">
+                        <div class="appss-img">
+                            <img class="img-fluid" src="./assets/images/app.png" alt="CRYPTIMIZE Apps">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Digital assets -->
+        <div class="home-asset-container index_HomeAssetNew__Li8iH">
+            <div class="index_content__5GDIQ">
+                <h2 class="index_title__456dt">Start your journey to digital assets now！</h2>
+                <div class="index_steps__GZdLh home-asset-new-content">
+                    <div class="index_step__bix_X"><img src="//a.static-global.com/xt/xt-ssr-web-index/_next/static/images/create_dark-ce8cd3a6dd4357d1c33b704c61f60b4e.png">
+                        <p>Create Account</p>
+                    </div>
+                    <div class="index_step-line__Z7ooH"></div>
+                    <div class="index_step__bix_X"><img src="data:image/png;base64,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">
+                        <p>Deposit</p>
+                    </div>
+                    <div class="index_step-line__Z7ooH"></div>
+                    <div class="index_step__bix_X"><img src="//a.static-global.com/xt/xt-ssr-web-index/_next/static/images/trade_dark-eaee3d94f67957ba28b980386299f9c6.png">
+                        <p>Trade</p>
+                    </div>
+                </div>
+                <div class="index_action__IhrM5"><a href="https://www.xt.com/en/accounts/register">Sign up</a><a href="https://www.xt.com/en/accounts/login" class="index_action-last__s_Yyh">Log in</a></div>
+            </div>
         </div>
     </main>
     <footer>
     </footer>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/bootstrap-selec.min.js"></script>
+    <script src="./assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="./assets/js/bootstrap-datepicker.tr.min.js"></script>
+    <script src="./assets/js/jquery-birthday-picker.js"></script>
+    <script src="./assets/js/amcharts-core.min.js"></script>
+    <script src="./assets/js/amcharts.min.js"></script>
+    <script src="./assets/js/apexcharts.min.js"></script>
+    <script src="./assets/js/jquery.peity.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="./assets/js/icheck.min.js"></script>
+    <script src="./assets/js/jquery.mask.min.js"></script>
+    <script src="./assets/js/js.cookie.min.js"></script>
+    <script src="./assets/js/jquery.nice-select.min.js"></script>
+    <script src="./assets/js/ion.rangeSlider.min.js"></script>
+    <script src="./assets/js/jquery.mCustomScrollbar.js"></script>
+    <script src="./assets/js/utils.js"></script>
+    <!-- <script src="./assets/js/custom.js"></script> -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        $(".home-small-banners").slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            arrows: false,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true,
+                    },
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                    },
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                    },
+                },
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+            ],
+        });
+    });
+    </script>
 </body>
 
 </html>
