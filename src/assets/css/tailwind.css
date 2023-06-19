@@ -2537,6 +2537,10 @@ button.fuOS:hover:not(:disabled) {
 }
 
 @media screen and (min-width: 768px) {
+
+    .announcements-block {
+        display: none;
+    }
     .QFHI {
         padding: calc(var(--spaces)*16) 0 calc(var(--spaces)*6);
     }
@@ -2731,9 +2735,27 @@ button.fuOS:hover:not(:disabled) {
 
 
 
-
 /*[ === RESPONSIVENESS === ]*/
 @media screen and (max-width: 767px) {
+
+
+
+    .index_home-nfts-container__LVdiG .index_nfts-learn-btn__pJH_e {
+        min-width:120px;
+        height: 40px;
+        font-size: 14px;
+        padding: 0 10px
+    }
+    .index_home-nfts-container__LVdiG .index_nfts-container__cY508 {
+        padding:0 12px
+    }
+
+     .index_home-nfts-container__LVdiG .index_nfts-container__cY508 .index_nfts-right__7PJrf {
+        width:90%;
+        height: 320px;
+        border-radius: 10px
+    }
+
     .index_banner-container__MASb_ {
         padding: 34px 16px 100px;
         height: unset;
@@ -2969,6 +2991,24 @@ button.fuOS:hover:not(:disabled) {
 
 @media (max-width: 920px) {
 
+    .index_home-nfts-container__LVdiG .index_mobile__f7qq2 {
+        display:flex;
+        font-weight: 900;
+        margin-top: 40px
+    }
+
+    .index_home-nfts-container__LVdiG .index_nfts-container__cY508 {
+        flex-direction:column;
+        padding: 0 20px
+    }
+
+    .index_home-nfts-container__LVdiG .index_nfts-container__cY508 .index_nfts-left__oBNuu {
+        display:none
+    }
+.index_home-nfts-container__LVdiG .index_nfts-container__cY508 .index_nfts-right__7PJrf {
+        width:90%;
+        height: 420px
+    }
 
  .index_home-guide-container__whIS1 {
         width:unset;
