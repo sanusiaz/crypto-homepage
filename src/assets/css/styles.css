@@ -3352,6 +3352,14 @@ ul {
   }
 }
 
+.index_quick-reg-wrapper__AGLkO .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button {
+  border-radius: 0 6px 6px 0;
+  padding: 0 55px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 24px;
+}
+
 .g\+Tk .b9kk>.KiXV {
   width: 100%;
   height: 100%;
@@ -3665,6 +3673,10 @@ button.fuOS:hover:not(:disabled) {
 }
 
 @media screen and (min-width: 768px) {
+  .announcements-block {
+    display: none;
+  }
+
   .QFHI {
     padding: calc(var(--spaces)*16) 0 calc(var(--spaces)*6);
   }
@@ -3858,19 +3870,23 @@ button.fuOS:hover:not(:disabled) {
 /*[ === RESPONSIVENESS === ]*/
 
 @media screen and (max-width: 767px) {
+  .index_quick-reg-wrapper__AGLkO .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button {
+    border-radius: 6px;
+  }
+
   .index_home-nfts-container__LVdiG .index_nfts-learn-btn__pJH_e {
-    min-width:120px;
+    min-width: 120px;
     height: 40px;
     font-size: 14px;
     padding: 0 10px
   }
 
   .index_home-nfts-container__LVdiG .index_nfts-container__cY508 {
-    padding:0 12px
+    padding: 0 12px
   }
 
   .index_home-nfts-container__LVdiG .index_nfts-container__cY508 .index_nfts-right__7PJrf {
-    width:90%;
+    width: 90%;
     height: 320px;
     border-radius: 10px
   }
@@ -3912,8 +3928,10 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_quick-reg-wrapper__AGLkO .ant-input-group {
-    height: 120px;
+    /*        height: 120px;*/
     display: flex;
+    height: -moz-max-content;
+    height: max-content;
     flex-direction: column;
   }
 
@@ -3986,21 +4004,21 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU h5 {
-    text-align:center
+    text-align: center
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_phone-tool__zF0FA {
-    display:flex;
+    display: flex;
     padding: 30px 0;
     justify-content: space-between
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_pane__Qk1D2 {
-    flex-wrap:wrap
+    flex-wrap: wrap
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_pane__Qk1D2>img {
-    height:unset;
+    height: unset;
     width: calc(100% - 10px);
     margin-right: 0;
     margin-left: -6px;
@@ -4008,31 +4026,31 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_pane-tool__pUuVC {
-    padding:0 16px;
+    padding: 0 16px;
     flex-direction: column-reverse;
     margin-bottom: 30px
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_pane-tool__pUuVC .index_qcode-drop__XGiQE {
-    padding:12px 13px;
+    padding: 12px 13px;
     margin-bottom: 0
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_pane-tool__pUuVC .index_qcode-drop__XGiQE .index_qcode-tip__Deruf p {
-    font-weight:400;
+    font-weight: 400;
     font-size: 12px;
     line-height: 12px;
     margin-bottom: 5px
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_pane-tool__pUuVC .index_qcode-drop__XGiQE .index_qcode-tip__Deruf div {
-    font-weight:500;
+    font-weight: 500;
     font-size: 18px;
     line-height: 18px
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_pane-tool__pUuVC .index_pane-tool-con__wL3ON {
-    margin-bottom:7px
+    margin-bottom: 7px
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_pane-tool__pUuVC .index_pane-tool-con1__Cq1fk {
@@ -4040,7 +4058,7 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_app-download-container__eH5gg article .index_load-pane__cvbMU .index_pane-tool__pUuVC .index_tool-qcode__Dwsw3 {
-    display:none
+    display: none
   }
 
   .index_HomeAssetNew__Li8iH .index_content__5GDIQ .index_steps__GZdLh .index_step-line__Z7ooH {
@@ -4063,95 +4081,111 @@ button.fuOS:hover:not(:disabled) {
 
 @media (min-width: 921px) {
   .index_home-nfts-container__uwfoS .index_nfts-learn-btn__rCbYM {
-    max-width:50%
+    max-width: 50%
   }
 }
 
 @media (max-width: 920px) {
   .index_home-nfts-container__LVdiG .index_mobile__f7qq2 {
-    display:flex;
+    display: flex;
     font-weight: 900;
     margin-top: 40px
   }
 
   .index_home-nfts-container__LVdiG .index_nfts-container__cY508 {
-    flex-direction:column;
+    flex-direction: column;
     padding: 0 20px
   }
 
   .index_home-nfts-container__LVdiG .index_nfts-container__cY508 .index_nfts-left__oBNuu {
-    display:none
+    display: none
   }
 
   .index_home-nfts-container__LVdiG .index_nfts-container__cY508 .index_nfts-right__7PJrf {
-    width:90%;
+    width: 90%;
     height: 420px
   }
 
   .index_home-guide-container__whIS1 {
-    width:unset;
+    width: unset;
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 23px
   }
 
   .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action__5fDia {
-    flex-wrap:wrap
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img__xZ36V {
-    width:100%;
+    width: 100%;
     height: unset;
     margin-right: 0
   }
 
   .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-title__qTPV8 {
-    font-weight:700;
+    font-weight: 700;
     font-size: 24px;
     line-height: 30px;
     margin-bottom: 12px
   }
 
   .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-text__KEzr7 {
-    font-weight:400;
+    font-weight: 400;
     font-size: 14px;
     line-height: 18px;
     margin-bottom: 30px
   }
 
   .index_home-nfts-container__uwfoS {
-    width:unset;
+    width: unset;
     padding: 10px 16px 0
   }
 
   .index_home-nfts-container__uwfoS .index_mobile__vpliv {
-    display:flex;
+    display: flex;
     font-weight: 900;
     margin-top: 40px
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-container__kwU9_ .index_nfts-right__TpaMg {
-    width:90%;
+    width: 90%;
     height: 420px
   }
 }
 
 @media screen and (max-width: 768px) {
+  .announcements-block {
+    overflow: hidden;
+  }
+
+  .announcements-block .icon {
+    padding: 0px;
+    background: none;
+    padding-left: 4px;
+  }
+
+  .announcements-block .slick-slider {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .index_banner-container-box__y7FXf {
-    width:100%
+    width: 100%
   }
 
   .index_market-group-container__wAuIy {
-    display:block;
+    display: block;
     padding-top: 50px
   }
 
   .index_market-group-container__wAuIy .index_tit__8ojJD {
-    margin:100px auto 45px
+    margin: 100px auto 45px
   }
 
   .index_market-group-container__wAuIy .index_tabs-content__YGtm_ {
-    margin:0;
+    margin: 0;
     padding-left: 16px;
     padding-right: 16px
   }
@@ -4164,7 +4198,7 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_market-group-container__wAuIy .index_market-list-view__s6ZyS .index_list-header__aILVN li {
-    height:40px;
+    height: 40px;
     line-height: 40px;
     font-size: 12px;
     min-height: 52px;
@@ -4172,22 +4206,22 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_market-group-container__wAuIy .index_market-list-view__s6ZyS .index_list-content__dME4M {
-    min-height:200px
+    min-height: 200px
   }
 
   .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul {
-    padding:0 16px
+    padding: 0 16px
   }
 
   .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li {
-    height:auto;
+    height: auto;
     font-size: 14px;
     line-height: 14px;
     font-weight: 400
   }
 
   .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li img {
-    width:20px;
+    width: 20px;
     height: 20px
   }
 
@@ -4195,16 +4229,18 @@ button.fuOS:hover:not(:disabled) {
     justify-content: flex-start
   }
 
-  .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li:nth-child(2),.index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li:nth-child(3) {
+  .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li:nth-child(2),
+    .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li:nth-child(3) {
     justify-content: flex-end
   }
 
-  .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li:nth-child(4),.index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li:nth-child(5) {
+  .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li:nth-child(4),
+    .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li:nth-child(5) {
     display: none
   }
 
   .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul li:last-child {
-    display:none
+    display: none
   }
 
   .index_market-group-container__wAuIy .index_market-list-view__s6ZyS ul .index_last-price__LkrcI {
@@ -4222,14 +4258,14 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_last-price-li__J2Qs2 {
-    padding-left:8px;
+    padding-left: 8px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis
   }
 
   .index_last-price-li__J2Qs2 .index_last-price-li-div__3Ozy_ {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: flex-end
   }
@@ -4237,7 +4273,7 @@ button.fuOS:hover:not(:disabled) {
 
 @media (min-width: 992px) and (max-width:1199px) {
   .index_trade-item-bigtext__g4zss {
-    font-size:18px
+    font-size: 18px
   }
 
   .index_trade-item-sales__C6V7r {
@@ -4246,98 +4282,105 @@ button.fuOS:hover:not(:disabled) {
 }
 
 @media (min-width: 768px) and (max-width:991px) {
-  .index_trade-item__RNAt1:nth-child(3),.index_trade-item__RNAt1:nth-child(4) {
-    display:none
+  .index_trade-item__RNAt1:nth-child(3),
+    .index_trade-item__RNAt1:nth-child(4) {
+    display: none
   }
 }
 
 @media (max-width: 767px) {
   .index_trade-item__RNAt1 {
-    display:none
+    display: none
   }
 
   .index_banner-mask-b__sa1VN {
-    height:150px
+    height: 150px
   }
 
   .index_trade-item-phone__fGDO7 {
-    display:flex
+    display: flex
   }
 
   .index_box__5Ks_g {
-    width:100%;
+    width: 100%;
     padding-right: 0
   }
 
   .index_box__5Ks_g .index_banner-mobile__Ux5ci {
-    display:none
+    display: none
   }
 
   .index_banner-carousel__G6mm8 .index_activity-view__2lo93 {
-    max-width:100%!important;
+    max-width: 100% !important;
     padding: 0 16px
   }
 
   .index_banner-carousel__G6mm8 .index_activity-view__2lo93 ul {
-    margin:0
+    margin: 0
   }
 
   .index_banner-carousel__G6mm8 .index_activity-view__2lo93 ul li {
-    margin:0
+    margin: 0
   }
 
   .index_banner-carousel__G6mm8 .index_activity-view__2lo93 ul li img {
-    max-height:180px
+    max-height: 180px
   }
 
-  .index_banner-carousel__G6mm8 .index_activity-view__2lo93 ul li:first-child,.index_banner-carousel__G6mm8 .index_activity-view__2lo93 ul li:last-child {
+  .index_banner-carousel__G6mm8 .index_activity-view__2lo93 ul li:first-child,
+    .index_banner-carousel__G6mm8 .index_activity-view__2lo93 ul li:last-child {
     margin: 0
   }
 
   .index_phone-click-mask__DYcvj {
-    display:block
+    display: block
   }
 
   .index_rate-mb__G4IKI {
-    display:block
+    display: block
   }
 
   .index_viewmore__c3tII {
-    font-size:14px;
+    font-size: 14px;
     margin-top: 18px
   }
 
+  .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img0___YfvQ {
+    margin-right: 0px;
+  }
+
   .index_home-nfts-container__uwfoS .index_nfts-actions__IWvap {
-    flex-wrap:wrap;
-    margin-bottom: 0
+    flex-wrap: wrap;
+    margin-bottom: 0;
+    justify-content: center;
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-actions__IWvap .index_action__DXw_k {
-    padding-left:28px;
+    padding-left: 28px;
     padding-top: 71px;
     margin-bottom: 20px;
     border-radius: 6px
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-actions__IWvap .index_action__DXw_k .index_action-title__8iR2K {
-    font-weight:500;
+    font-weight: 500;
     font-size: 24px;
     line-height: 34px;
     padding-right: 28px
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-actions__IWvap .index_action__DXw_k .index_action-bottom__frijz .index_action-text__jBOh5 {
-    padding-bottom:23px
+    padding-bottom: 23px
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-actions__IWvap .index_action__DXw_k .index_action-bottom__frijz .index_action-img__vtimI {
-    width:106px;
+    width: 106px;
     height: 106px;
     border-radius: 0 0 6px 0
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-title__uaXaQ {
-    font-weight:700;
+    font-weight: 700;
     font-size: 24px;
     line-height: 24px;
     margin-bottom: 20px;
@@ -4345,7 +4388,7 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-title1__guaHg {
-    font-weight:500;
+    font-weight: 500;
     font-size: 24px;
     line-height: 34px;
     margin-bottom: 28px;
@@ -4353,33 +4396,33 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-title-desc__PlaxA {
-    font-size:14px;
+    font-size: 14px;
     margin: 18px 10px 10px
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-learn-btn__rCbYM {
-    min-width:120px;
+    min-width: 120px;
     height: 40px;
     font-size: 14px;
     padding: 0 10px
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-container__kwU9_ {
-    width:100%
+    width: 100%
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-container__kwU9_ .index_nfts-left__891dx {
-    padding:71px 28px 23px;
+    padding: 71px 28px 23px;
     width: 100%
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-container__kwU9_ .index_nfts-mb__UggAP {
-    display:flex;
+    display: flex;
     margin-bottom: 42px
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-container__kwU9_ .index_nfts-mb__UggAP .index_nft-img__ENwyn {
-    display: flex!important;
+    display: flex !important;
     justify-content: center
   }
 
@@ -4389,8 +4432,8 @@ button.fuOS:hover:not(:disabled) {
   }
 
   .index_home-nfts-container__uwfoS .index_nfts-container__kwU9_ .index_nfts-right__TpaMg {
-    display:none;
-    width:90%;
+    display: none;
+    width: 90%;
     height: 320px;
     border-radius: 10px
   }
