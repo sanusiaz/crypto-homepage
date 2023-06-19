@@ -1415,7 +1415,7 @@
 
     <script type="text/javascript">
         // Default Total No Of Coins Data to show
-        const size = 10;
+        const size = 5;
 
         $(document).ready(function () {
             // Format Numbers
@@ -1479,6 +1479,10 @@
                             TopGainers = __response.filter((a) => {
                                 return a.priceChangePercent >= 1;
                             });
+
+
+                            NewCoins = __response.reverse().slice(0, size);
+                            // NewCoins = NewCoins.reverse();
 
                             HotCoins = __response.filter( (a) => {
                                 if ( AllowedHotCoinsSymbol.includes(a.symbol) ) {
