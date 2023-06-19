@@ -1457,6 +1457,10 @@
 
             // Allowed Hot Futures Coins to show
             let AllowedHotFuturesSymbols = [
+                'OXTUSDT',
+                'ETHUSDT',
+                'SOLUSDT',
+                'BTCUSDT'
             ];
 
             let HotCoins = [];
@@ -1482,10 +1486,15 @@
 
 
                             NewCoins = __response.reverse().slice(0, size);
-                            // NewCoins = NewCoins.reverse();
 
                             HotCoins = __response.filter( (a) => {
                                 if ( AllowedHotCoinsSymbol.includes(a.symbol) ) {
+                                    return a;
+                                }
+                            } );
+
+                            HotFutures = __response.filter( (a) => {
+                                if ( AllowedHotFuturesSymbols.includes(a.symbol) ) {
                                     return a;
                                 }
                             } );
