@@ -111,7 +111,7 @@
     e.stopImmediatePropagation();
   });
   //Announcements Slider
-  $(".announcements-single-item").slick({
+  $(".announcements-single-item").not('.slick-initialized').slick({
     infinite: true,
     vertical: true,
     autoplay: true,
@@ -119,7 +119,7 @@
     arrows: false,
   });
   // Home Banners Slider
-  $(".home-small-banners").slick({
+  $(".home-small-banners").not('.slick-initialized').slick({
     dots: true,
     infinite: true,
     speed: 300,
@@ -158,7 +158,7 @@
     ],
   });
   //Video Slider
-  $(".video-single-item").slick({
+  $(".video-single-item").not('.slick-initialized').slick({
     infinite: true,
     autoplay: true,
     autoplaySpeed: 5000,
@@ -166,7 +166,7 @@
     dots: true,
   });
   //Home Guide Slider
-  $(".guide-carousel").slick({
+  $(".guide-carousel").not('.slick-initialized').slick({
     infinite: true,
     autoplay: true,
     autoplaySpeed: 5000,
@@ -176,7 +176,7 @@
     verticalSwiping: true,
   });
   // Home Blog Slider
-  $(".blog-single-item").slick({
+  $(".blog-single-item").not('.slick-initialized').slick({
     infinite: true,
     autoplay: true,
     autoplaySpeed: 5000,
@@ -212,7 +212,7 @@
     ],
   });
   // Home Blog Slider
-  $(".roadmap-carousel").slick({
+  $(".roadmap-carousel").not('.slick-initialized').slick({
     infinite: true,
     autoplay: true,
     autoplaySpeed: 5000,
@@ -248,7 +248,7 @@
     ],
   });
   // Home Blog Slider
-  $(".airdrop-single-item").slick({
+  $(".airdrop-single-item").not('.slick-initialized').slick({
     infinite: true,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -274,7 +274,7 @@
   /*----------------------------------------------------*/
   /*    Screens Carousel Slick
      /*----------------------------------------------------*/
-  $(".app-screenshot-slick").slick({
+  $(".app-screenshot-slick").not('.slick-initialized').slick({
     infinite: true,
     autoplay: true,
     centerMode: true,
