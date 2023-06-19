@@ -873,7 +873,7 @@
                     <li>Name</li>
                     <li>Last Price</li>
                     <li>24H Change</li>
-                    <li>Crypto Markets</li>
+                    <li>Volume</li>
                     <li>Operation</li>
                 </ul>
                 <div class="index_xt-pane-container__4f629 undefined index_list-content__dME4M" style="min-height:undefinedpx">
@@ -1460,7 +1460,8 @@
                 'OXTUSDT',
                 'ETHUSDT',
                 'SOLUSDT',
-                'BTCUSDT'
+                'BTCUSDT',
+                'BNBETH'
             ];
 
             let HotCoins = [];
@@ -1560,8 +1561,7 @@
                                     </div>
                                 </li>
                                 <li><span class="${( __element.priceChangePercent > 1 ? 'index_up-color__Y2MvT' : 'index_down-color__DnzXD' )}">${__element.priceChangePercent}</span></li>
-                                <li><canvas role="img" height="50" width="150" style="box-sizing: border-box; display: block; height: 40px; width: 120px;"></canvas>
-                                    <canvas role="img" height="50" width="150" style="box-sizing: border-box; display: block; height: 40px; width: 120px;"></canvas>
+                                <li>${dollarUSLocale.format(__element.volume)}
                                 </li>
                                 <li>
                                     <a href="/trade" class="index_list-content-li-trade__uACOd">Trade</a>
