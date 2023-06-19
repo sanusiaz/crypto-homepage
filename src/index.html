@@ -862,7 +862,7 @@
         <!-- Top Coin Info -->
         <div class="market-group-container index_market-group-container__wAuIy">
             <div class="index_tabs-content__YGtm_">
-                <div class="index_tab-active__SZvvs">Hot Coins</div>
+                <div class="index_tab-active__SZvvs" data-type="hot_coins">Hot Coins</div>
                 <div class="" data-type="new_coins">New Coins</div>
                 <div class="" data-type="top_gainers">Top Gainers</div>
                 <div class="" data-type="top_losers">Top Losers</div>
@@ -1504,6 +1504,8 @@
             });
 
             $(".index_tabs-content__YGtm_ [data-type]").click(function () {
+                $(".index_tabs-content__YGtm_ [data-type]").removeClass("index_tab-active__SZvvs");
+                $(this).toggleClass("index_tab-active__SZvvs");
                 let __that = $(this);
                 let __dataType = __that.attr('data-type');
                 console.log(__dataType);
