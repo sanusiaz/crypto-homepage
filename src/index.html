@@ -863,10 +863,10 @@
         <div class="market-group-container index_market-group-container__wAuIy">
             <div class="index_tabs-content__YGtm_">
                 <div class="index_tab-active__SZvvs">Hot Coins</div>
-                <div class="">New Coins</div>
-                <div class="">Top Gainers</div>
-                <div class="">Top Losers</div>
-                <div class="">Hot Futures</div>
+                <div class="" data-type="new_coins">New Coins</div>
+                <div class="" data-type="top_gainers">Top Gainers</div>
+                <div class="" data-type="top_losers">Top Losers</div>
+                <div class="" data-type="hot_futures">Hot Futures</div>
             </div>
             <div class="market-group-container-view index_market-list-view__s6ZyS">
                 <ul class="index_list-header__aILVN">
@@ -954,19 +954,19 @@
                 <p class="vAfg">
                     Here’s how easy it is:
                 </p>
-                <div class="PuT7">
+                <div class="PuT7 text-gray-200">
                     <ul class="EcXR">
-                        <li class="_3xlC">
+                        <li class="_3xlC text-gray-200">
                             Choose the currencies
                         </li>
                     </ul>
                     <ul class="EcXR">
-                        <li class="_3xlC">
+                        <li class="_3xlC text-gray-200">
                             Specify the sum
                         </li>
                     </ul>
                     <ul class="EcXR">
-                        <li class="_3xlC">
+                        <li class="_3xlC text-gray-200">
                             Click «Exchange»
                         </li>
                     </ul>
@@ -1414,10 +1414,149 @@
     <script src="./assets/js/custom.js"></script>
 
     <script type="text/javascript">
+        // Default Total No Of Coins Data to show
+        const size = 10;
+
         $(document).ready(function () {
-            $("._5D4k").click(() => {
+            // Format Numbers
+            Number.prototype.format = function(n, x) {
+                var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+                return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
+            };
+
+            let dollarUSLocale = Intl.NumberFormat('en-US');
+
+
+
+            $("._5D4k").click(function () {
+                $('._5D4k').removeClass('smjM');
                 $(this).toggleClass('smjM');
             });
+
+
+            // Set Logo to use
+            let logos = {
+                BTCUSDT: 'btc',
+                ETHUSDT: 'eth',
+                BTCBUSD: 'btc',
+                DOTUSDT: 'dot',
+                ETHXTUSD: 'eth',
+            };
+
+
+
+            // Allowed Hot Coin to show
+            let AllowedHotCoinsSymbol = [
+                'BTCUSDT',
+                'ETHUSDT',
+                'BTCBUSD',
+                'DOTUSDT',
+                'ETHXTUSD',
+            ];
+
+
+            // Allowed Hot Futures Coins to show
+            let AllowedHotFuturesSymbols = [
+            ];
+
+            let HotCoins = [];
+            let TopGainers = [];
+            let TopLosers = [];
+            let NewCoins = [];
+            let HotFutures = [];
+
+            $.ajax({
+                url: 'https://api.binance.com/api/v3/ticker/24hr',
+                type: 'GET',
+                dataTyle: 'JSON',
+
+                complete: response => {
+                    if ( response.statusText !== 'error' && response.status !== 404 ) {
+                        let __response = JSON.parse(response.responseText);
+
+                        if ( Array.isArray(__response) ) {
+                            // loop Through all the coins and sort out daya 
+                            TopGainers = __response.filter((a) => {
+                                return a.priceChangePercent >= 1;
+                            });
+
+                            HotCoins = __response.filter( (a) => {
+                                if ( AllowedHotCoinsSymbol.includes(a.symbol) ) {
+                                    return a;
+                                }
+                            } );
+
+                            TopGainers.sort(function(a, b){return b.priceChangePercent-a.priceChangePercent});
+
+
+                            TopLosers = __response.filter((e) => {
+                                return e.priceChangePercent < 0;
+                            });
+                            TopLosers.sort(function(a, b){return b.priceChangePercent-a.priceChangePercent});
+
+                            // Load Default Hot Coins
+                            $(".index_xt-pane-container__4f629").html('');
+
+                            __parseCoinsData(HotCoins.slice(0, size));   
+                        }
+                    }
+                }
+            });
+
+            $(".index_tabs-content__YGtm_ [data-type]").click(function () {
+                let __that = $(this);
+                let __dataType = __that.attr('data-type');
+                console.log(__dataType);
+
+                if ( __dataType === 'top_gainers' ) {
+                    __parseCoinsData(TopGainers.slice(0, size));
+                }
+                else if ( __dataType === 'top_losers' ) {
+                    __parseCoinsData(TopLosers.slice(0, size));
+                }
+                else if ( __dataType === 'hot_futures' ) {
+                    __parseCoinsData(HotFutures.slice(0, size));              
+                }
+                else if ( __dataType === 'new_coins' ) {
+                    __parseCoinsData(NewCoins.slice(0, size));  
+                }
+                else {
+                    __parseCoinsData(HotCoins.slice(0, size));              
+                }
+               
+
+            });
+
+
+            function __parseCoinsData(  coinsData = [] ) {
+                    $(".index_xt-pane-container__4f629").html('');
+                    coinsData.forEach(__element => {
+                        let symbol = __element.symbol;
+                        let __place  = symbol.slice(3);
+
+                        let coinShortName = symbol.substring(0, 3);
+
+                        $(".index_xt-pane-container__4f629").append(`
+                            <ul class="index_list-content-ul__3ZsrS">
+                                <li><img src="https://a.static-global.com/1/currency/${coinShortName.toLowerCase()}.png" alt="${coinShortName.toLowerCase()}"><span class="index_text-uppercase__bP7nc" style="font-size: 16px;">${coinShortName}</span><span style="margin-top: 2px;">/</span><span class="index_text-uppercase__bP7nc" style="margin-top: 2px;">${__place}</span></li>
+                                <li class="index_last-price-li__J2Qs2">
+                                    <div class="index_last-price-li-div__3Ozy_">
+                                        <div class="index_last-price__LkrcI"><span>${dollarUSLocale.format(__element.lastPrice)} </span></div>
+                                    </div>
+                                </li>
+                                <li><span class="${( __element.priceChangePercent > 1 ? 'index_up-color__Y2MvT' : 'index_down-color__DnzXD' )}">${__element.priceChangePercent}</span></li>
+                                <li><canvas role="img" height="50" width="150" style="box-sizing: border-box; display: block; height: 40px; width: 120px;"></canvas>
+                                    <canvas role="img" height="50" width="150" style="box-sizing: border-box; display: block; height: 40px; width: 120px;"></canvas>
+                                </li>
+                                <li>
+                                    <a href="/trade" class="index_list-content-li-trade__uACOd">Trade</a>
+                                </li>
+                            </ul>
+                        `);
+                    });
+                
+            }
+          
         });
     </script>
 </body>

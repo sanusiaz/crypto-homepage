@@ -1128,6 +1128,11 @@ video {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
 .text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
@@ -2640,6 +2645,10 @@ section.apps .appss-content .download-buttons a:hover, .app-page .app-banner .do
   color: #00c186!important;
 }
 
+.index_down-color__DnzXD {
+  color: #ff5761!important;
+}
+
 /*[ === EXCHANGE STYLING START === ]*/
 
 .zZ8Y {
@@ -3645,6 +3654,84 @@ a.fuOS:hover:not(:disabled), button.fuOS:hover:not(:disabled) {
 }
 
 /*[ === END SMART STAKING === ]*/
+
+/*[ === RESPONSIVENESS === ]*/
+
+@media screen and (max-width: 767px) {
+  .index_banner-container__MASb_ {
+    padding: 34px 16px 100px;
+    height: unset;
+  }
+
+  .index_box__5Ks_g {
+    width: 100%;
+    padding-right: 0;
+  }
+
+  .index_banner-container-box__y7FXf {
+    width: 100%;
+  }
+
+  .index_big-tit__xQ7c3 {
+    font-size: 36px;
+    line-height: 40px;
+    width: 291px;
+    margin-bottom: 14px;
+  }
+
+  .index_little-tit__U9UJY {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 26px;
+  }
+
+  .index_quickRegTool-box__CSWGE {
+    width: unset;
+  }
+
+  .index_quick-reg-wrapper__AGLkO {
+    height: 52px;
+    border-radius: 8.35px;
+  }
+
+  .index_quick-reg-wrapper__AGLkO .ant-input-group {
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .index_quick-reg-wrapper__AGLkO .ant-input-group .ant-input {
+    height: 52px;
+    font-size: 18px;
+    line-height: 18px;
+    border-radius: 6.35px;
+  }
+
+  .index_quick-reg-wrapper__AGLkO .ant-input-group-addon {
+    margin-top: 16px;
+    height: 52px;
+    width: 100%;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  .index_quick-reg-wrapper__AGLkO .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button {
+    border-radius: 6px;
+  }
+
+  .index_quick-reg-wrapper__AGLkO .ant-input-search-button {
+    width: 100%;
+  }
+
+  .ant-btn-primary {
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+  .index_box__5Ks_g .index_banner-mobile__Ux5ci {
+    display: none;
+  }
+}
 
 @media (min-width: 768px) {
   .md\:text-5xl {
