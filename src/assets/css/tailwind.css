@@ -2747,6 +2747,10 @@ button.fuOS:hover:not(:disabled) {
 /*[ === RESPONSIVENESS === ]*/
 @media screen and (max-width: 767px) {
 
+    .announcements-block .read-more {
+        display: none;
+    }
+
     .index_quick-reg-wrapper__AGLkO .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button {
         border-radius: 6px;
         padding: 10px;
@@ -2995,6 +2999,20 @@ button.fuOS:hover:not(:disabled) {
 
 }
 
+
+@media screen and (max-width: 600px) {
+    section.apps .appss-content h2 {
+        font-size: 30px;
+    }
+
+    section.apps .appss-content .apps-property li, .app-page .app-banner li {
+        font-size: 16px;
+    }
+
+    section.apps .appss-content .apps-property {
+        margin-top: 10px;
+    }
+}
 
 @media (min-width: 921px) {
     .index_home-nfts-container__uwfoS .index_nfts-learn-btn__rCbYM {
@@ -3368,6 +3386,17 @@ button.fuOS:hover:not(:disabled) {
     }
 }
 
+
+@media screen and (max-width: 400px) {
+    .announcements-block .slick-slider {
+        font-size: 11.5px;
+    }
+
+    .announcements-block .icon {
+        font-size: 20px;
+        padding-left: 9px;
+    }
+}
 
 
 @keyframes index_slideInUp__nyirg {
