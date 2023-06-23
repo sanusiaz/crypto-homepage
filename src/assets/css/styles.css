@@ -1092,11 +1092,6 @@ video {
   vertical-align: text-bottom;
 }
 
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
 .text-5xl {
   font-size: 3rem;
   line-height: 1;
@@ -2230,15 +2225,14 @@ svg {
 }
 
 .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img0___YfvQ {
-  width: 319.98px;
-  height: 353.65px;
+  height: 285.01702881px;
+  width: 356.23278809px;
   margin-right: 220px;
   margin-bottom: 26px;
 }
 
 img {
   vertical-align: middle;
-  border-style: none;
 }
 
 .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-title__qTPV8 {
@@ -3014,6 +3008,8 @@ ul {
 
 .m5cU.NsIK {
   cursor: pointer;
+  color: black;
+  gap: 10px;
 }
 
 .u-tied-item {
@@ -4365,7 +4361,8 @@ button.fuOS:hover:not(:disabled) {
     margin-top: 18px
   }
 
-  .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img0___YfvQ {
+  .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img0___YfvQ, 
+    .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img2__sSl7s {
     margin-right: 0px;
   }
 
@@ -4506,7 +4503,17 @@ button.fuOS:hover:not(:disabled) {
   }
 }
 
+@media screen and (max-width: 500px) {
+  li.c1bl {
+    max-width: 90%;
+  }
+}
+
 @media (min-width: 768px) {
+  .md\:text-left {
+    text-align: left;
+  }
+
   .md\:text-5xl {
     font-size: 3rem;
     line-height: 1;

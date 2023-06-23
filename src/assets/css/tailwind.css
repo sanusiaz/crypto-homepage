@@ -1064,15 +1064,15 @@ svg {
 }
 
 .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img0___YfvQ {
-    width: 319.98px;
-    height: 353.65px;
+
+    height: 285.01702881px;
+    width: 356.23278809px;
     margin-right: 220px;
     margin-bottom: 26px;
 }
 
 img {
     vertical-align: middle;
-    border-style: none;
 }
 
 .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-title__qTPV8 {
@@ -1863,6 +1863,8 @@ ul {
 
 .m5cU.NsIK {
     cursor: pointer;
+    color: black;
+    gap: 10px;
 }
 
 .u-tied-item {
@@ -3289,7 +3291,8 @@ button.fuOS:hover:not(:disabled) {
         margin-top: 18px
     }
 
-    .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img0___YfvQ {
+    .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img0___YfvQ, 
+    .index_home-guide-container__whIS1 .index_guide-step__mZs6g .index_action-img2__sSl7s {
         margin-right: 0px;
     }
 
@@ -3432,5 +3435,11 @@ button.fuOS:hover:not(:disabled) {
     to {
         transform: translateY(0);
         visibility: visible
+    }
+}
+
+@media screen and (max-width: 500px) {
+    li.c1bl {
+        max-width: 90%;
     }
 }
